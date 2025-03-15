@@ -1,0 +1,29 @@
+/* client/src/styles/Profile.css */
+.profile-page {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profile-page h2 {
+  text-align: center;
+  color: #333;
+}
+
+.profile-page h3 {
+  margin-top: 30px;
+  color: #555;
+}
+
+.booking-list {
+  list-style: none;
+  padding: 0;
+}
+
+.booking-list li {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}

@@ -1,0 +1,12 @@
+/* client/src/styles/Booking.css */
+.booking-page {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.booking-page h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
