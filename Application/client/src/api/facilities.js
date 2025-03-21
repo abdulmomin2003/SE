@@ -3,17 +3,6 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/facilities";
 
-// Get all facilities
-export const getFacilities = async () => {
-  try {
-    const response = await axios.get(API_URL);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching facilities:", error);
-    throw error.response.data;
-  }
-};
-
 // Create a new facility (for owners)
 export const createFacility = async (facilityData, token) => {
   try {
@@ -27,15 +16,13 @@ export const createFacility = async (facilityData, token) => {
   }
 };
 
-// Update facility information
-export const updateFacility = async (facilityId, updatedData, token) => {
+// Get all facilities
+export const getFacilities = async () => {
   try {
-    const response = await axios.put(`${API_URL}/${facilityId}`, updatedData, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
-    console.error("Error updating facility:", error);
+    console.error("Error fetching facilities:", error);
     throw error.response.data;
   }
 };

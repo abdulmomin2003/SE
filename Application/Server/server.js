@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const session = require("express-session");
+const passport = require("passport");
 
 dotenv.config();
 
@@ -11,6 +13,21 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Express-session middleware (use a proper store in production)
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "your_session_secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// Initialize Passport and load configuration
+app.use(passport.initialize());
+app.use(passport.session());
+require("./config/passport"); // Ensure your Passport configuration is loaded
 
 // Connect to MongoDB
 mongoose

@@ -4,11 +4,16 @@ const router = express.Router();
 const facilityController = require("../controllers/facilityController");
 const { verifyToken } = require("../middleware/authMiddleware");
 
-// Public route: List all facilities
+// Get all facilities
 router.get("/", facilityController.getAllFacilities);
 
-// Protected routes: Create and update facility (accessible by authenticated users/owners)
+// ✅ Get facilities for the logged-in owner
+router.get("/owner", verifyToken, facilityController.getOwnerFacilities);
+
+// Create facility (Only owners)
 router.post("/", verifyToken, facilityController.createFacility);
+
+// Update facility details (Only owner)
 router.put("/:id", verifyToken, facilityController.updateFacility);
 
 module.exports = router;

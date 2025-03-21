@@ -18,8 +18,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/booking" element={<Booking />} />
+        <Route path="/register" element={<Register />} />{" "}
+        <Route path="/booking/:facilityId" element={<Booking />} />{" "}
+        {/* ✅ Handle dynamic facility ID */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/owner-dashboard" element={<OwnerDashboard />} />
         <Route path="/add-facility" element={<AddFacility />} />

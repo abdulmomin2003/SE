@@ -7,7 +7,7 @@ const FacilitySchema = new mongoose.Schema(
     location: { type: String, required: true },
     sportType: { type: String, required: true },
     description: { type: String },
-    availableSlots: { type: [String], default: [] },
+    availableSlots: { type: [String], default: [] }, // Store available slots
     pricing: { type: Number, required: true },
     owner: {
       type: mongoose.Schema.Types.ObjectId,

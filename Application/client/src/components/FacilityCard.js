@@ -2,10 +2,10 @@
 import React from "react";
 import "../styles/FacilityCard.css";
 
-function FacilityCard({ facility }) {
+function FacilityCard({ facility, onBookNow }) {
   return (
     <div className="facility-card">
-      <h3>{facility.name}</h3>
+      <h2>{facility.name}</h2>
       <p>
         <strong>Location:</strong> {facility.location}
       </p>
@@ -15,10 +15,11 @@ function FacilityCard({ facility }) {
       <p>
         <strong>Pricing:</strong> ${facility.pricing}
       </p>
-      {facility.description && <p>{facility.description}</p>}
-      <a href="/booking" className="btn">
+      <p>{facility.description || "Available 24/7"}</p>
+      <button className="book-now-btn" onClick={onBookNow}>
         Book Now
-      </a>
+      </button>{" "}
+      {/* ✅ Button inside the card */}
     </div>
   );
 }

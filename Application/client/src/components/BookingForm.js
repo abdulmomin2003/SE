@@ -1,37 +1,46 @@
-// client/src/components/BookingForm.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/BookingForm.css";
 
-function BookingForm({ onBookingSubmit }) {
-  const [date, setDate] = useState("");
-  const [timeSlot, setTimeSlot] = useState("");
+function BookingForm({ onBookingSubmit, availableSlots = [] }) {
+  const [selectedSlot, setSelectedSlot] = useState("");
+
+  useEffect(() => {
+    console.log("Received Available Slots in BookingForm:", availableSlots);
+  }, [availableSlots]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onBookingSubmit({ date, timeSlot });
+    if (!selectedSlot) {
+      alert("Please select a time slot.");
+      return;
+    }
+    // Pass today's date (or modify as needed) along with the selected slot
+    onBookingSubmit({
+      date: new Date().toISOString().split("T")[0],
+      timeSlot: selectedSlot,
+    });
   };
 
   return (
     <form className="booking-form" onSubmit={handleSubmit}>
       <div className="form-group">
-        <label htmlFor="date">Select Date:</label>
-        <input
-          type="date"
-          id="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
+        <label>Select Time Slot:</label>
+        <select
+          value={selectedSlot}
+          onChange={(e) => setSelectedSlot(e.target.value)}
           required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="timeSlot">Select Time Slot:</label>
-        <input
-          type="time"
-          id="timeSlot"
-          value={timeSlot}
-          onChange={(e) => setTimeSlot(e.target.value)}
-          required
-        />
+        >
+          <option value="">Select a time slot</option>
+          {availableSlots.length > 0 ? (
+            availableSlots.map((slot, index) => (
+              <option key={index} value={slot}>
+                {slot}
+              </option>
+            ))
+          ) : (
+            <option disabled>No slots available</option>
+          )}
+        </select>
       </div>
       <button type="submit" className="btn">
         Confirm Booking

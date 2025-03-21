@@ -3,6 +3,19 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/bookings";
 
+// Fetch available slots for a facility on a specific date
+export const getAvailableSlots = async (facilityId, bookingDate) => {
+  try {
+    const response = await axios.get(`${API_URL}/available-slots`, {
+      params: { facilityId, bookingDate },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching available slots:", error);
+    throw error.response.data;
+  }
+};
+
 // Create a new booking
 export const createBooking = async (bookingData, token) => {
   try {
@@ -16,7 +29,7 @@ export const createBooking = async (bookingData, token) => {
   }
 };
 
-// Get bookings for the logged-in user
+// ✅ Fetch bookings for the logged-in user (this function was missing!)
 export const getUserBookings = async (token) => {
   try {
     const response = await axios.get(API_URL, {
@@ -25,23 +38,6 @@ export const getUserBookings = async (token) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching user bookings:", error);
-    throw error.response.data;
-  }
-};
-
-// Update booking status (for owners/admin)
-export const updateBookingStatus = async (bookingId, status, token) => {
-  try {
-    const response = await axios.put(
-      `${API_URL}/${bookingId}`,
-      { status },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error updating booking:", error);
     throw error.response.data;
   }
 };
