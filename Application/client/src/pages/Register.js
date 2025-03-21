@@ -8,12 +8,14 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user"); // default role is user
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await registerUser({ name, email, password });
+      // Pass the selected role along with the other user details.
+      await registerUser({ name, email, password, role });
       alert("Registration Successful! Please login.");
       navigate("/login");
     } catch (error) {
@@ -46,6 +48,13 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <div className="role-selection">
+          <label>Select Role:</label>
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="user">User</option>
+            <option value="owner">Owner</option>
+          </select>
+        </div>
         <button type="submit" className="btn">
           Register
         </button>

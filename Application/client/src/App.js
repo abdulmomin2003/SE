@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Booking from "./pages/Booking";
 import Profile from "./pages/Profile";
+import OwnerDashboard from "./pages/OwnerDashboard";
+import AddFacility from "./pages/AddFacility";
 import "./styles/App.css";
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/owner-dashboard" element={<OwnerDashboard />} />
+        <Route path="/add-facility" element={<AddFacility />} />
       </Routes>
     </Router>
   );

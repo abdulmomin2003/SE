@@ -12,9 +12,17 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      // Expecting loginUser to return an object with token and role
       const data = await loginUser({ email, password });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
       alert("Login Successful!");
-      navigate("/");
+      // Redirect based on role: if owner, go to Owner Dashboard; else, home page.
+      if (data.role === "owner") {
+        navigate("/owner-dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       alert(error.message || "Login failed");
     }
