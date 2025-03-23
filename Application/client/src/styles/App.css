@@ -1,11 +1,62 @@
 /* client/src/styles/App.css */
+/* In your main CSS file (e.g., App.css or index.css) */
+
 body {
+  /* Custom background using an inline SVG pattern */
+  background: url("/public/graybg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  /* filter: grayscale(100%); Makes the entire background image grayscale */
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Alternatively, you can use a pure CSS gradient background if you don't have an image: */
+
+body.gradient-bg {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  background-attachment: fixed;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body.animated-bg {
+  background: linear-gradient(45deg, #007bff, #00c6ff, #007bff);
+  background-size: 600% 600%;
+  animation: backgroundAnimation 15s ease infinite;
+}
+/* client/src/styles/App.css */
+
+/* Default content styling */
+.main-content {
+  padding: 50px;
+  min-height: 100vh;
+  transition: background 0.5s ease-in-out, backdrop-filter 0.5s ease-in-out;
+}
+
+/* Frosted glass effect when scrolled */
+.main-content.scrolled {
+  background: rgba(255, 255, 255, 0.2); /* Light transparent background */
+  backdrop-filter: blur(10px); /* Glass-like blur effect */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 20px;
 }

@@ -45,3 +45,47 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// Change password endpoint (for local users)
+exports.changePassword = async (req, res) => {
+  try {
+    const userId = req.user.userId; // Assumes auth middleware sets req.user.userId
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    // Check that newPassword and confirmPassword match
+    if (newPassword !== confirmPassword) {
+      return res
+        .status(400)
+        .json({ message: "New password and confirmation do not match." });
+    }
+
+    // Find the user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // If the user signed up via Google, you might disallow password change:
+    if (user.googleId) {
+      return res
+        .status(400)
+        .json({ message: "Google users cannot change password." });
+    }
+
+    // Verify that oldPassword matches the stored password
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Old password is incorrect." });
+    }
+
+    // Hash the new password and update the user document
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: "Password updated successfully." });
+  } catch (error) {
+    console.error("Error updating password:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

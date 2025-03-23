@@ -1,6 +1,7 @@
 // server/config/passport.js
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const crypto = require("crypto"); // Import crypto to generate a random password
 const User = require("../models/User");
 const validator = require("validator");
 
@@ -22,10 +23,13 @@ passport.use(
         // Check if a user with this email exists; if not, create a new user.
         let user = await User.findOne({ email });
         if (!user) {
+          // Generate a random password (16 bytes converted to hex)
+          const randomPassword = crypto.randomBytes(16).toString("hex");
           user = await User.create({
             name: profile.displayName,
             email: email,
             googleId: profile.id,
+            password: randomPassword, // Set a random password to satisfy the schema requirement
             role: "user", // or "owner" if you want to differentiate
           });
         }

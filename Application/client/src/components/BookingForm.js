@@ -1,3 +1,4 @@
+// client/src/components/BookingForm.js
 import React, { useState, useEffect } from "react";
 import "../styles/BookingForm.css";
 
@@ -14,7 +15,6 @@ function BookingForm({ onBookingSubmit, availableSlots = [] }) {
       alert("Please select a time slot.");
       return;
     }
-    // Pass today's date (or modify as needed) along with the selected slot
     onBookingSubmit({
       date: new Date().toISOString().split("T")[0],
       timeSlot: selectedSlot,

@@ -1,17 +1,9 @@
 /* client/src/styles/Home.css */
-
 .home {
   padding: 20px;
   text-align: center;
 }
 
-.facility-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Filter container styles for location dropdown */
 .filter-container {
   margin-bottom: 20px;
   display: flex;
@@ -31,4 +23,10 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
+}
+
+.facility-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

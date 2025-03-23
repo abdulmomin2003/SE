@@ -13,7 +13,7 @@ const BookingSchema = new mongoose.Schema(
     timeSlot: { type: String, required: true, enum: generateTimeSlots() }, // Ensure only valid slots
     status: {
       type: String,
-      enum: ["booked", "cancelled", "completed"],
+      enum: ["booked", "cancelled", "completed", "confirmed"],
       default: "booked",
     },
   },

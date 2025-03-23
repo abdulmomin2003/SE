@@ -29,7 +29,7 @@ export const createBooking = async (bookingData, token) => {
   }
 };
 
-// ✅ Fetch bookings for the logged-in user (this function was missing!)
+// Fetch bookings for the logged-in user
 export const getUserBookings = async (token) => {
   try {
     const response = await axios.get(API_URL, {
@@ -38,6 +38,39 @@ export const getUserBookings = async (token) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching user bookings:", error);
+    throw error.response.data;
+  }
+};
+
+// Fetch bookings for the owner
+export const getOwnerBookings = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}/owner`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching owner bookings:", error);
+    throw error.response.data;
+  }
+};
+
+// Confirm or reject a booking (owner confirmation)
+export const confirmBooking = async (bookingId, confirmationStatus, token) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}/${bookingId}/confirm`,
+      { confirmationStatus },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error confirming booking:", error);
     throw error.response.data;
   }
 };
